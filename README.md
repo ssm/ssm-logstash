@@ -1,32 +1,37 @@
-#### Table of Contents
+# Puppet module ssm-logstash #
 
-1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with logstash](#setup)
-    * [What logstash affects](#what-logstash-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with logstash](#beginning-with-logstash)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
-
-## Overview
+## Overview ##
 
 Install and configure logstash instances
 
-## Module Description
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
+**Table of Contents**
+
+- [Puppet module ssm-logstash](#puppet-module-ssm-logstash)
+    - [Overview](#overview)
+    - [Module Description](#module-description)
+    - [Setup](#setup)
+        - [What logstash affects](#what-logstash-affects)
+        - [Setup Requirements](#setup-requirements)
+        - [Beginning with logstash](#beginning-with-logstash)
+    - [Usage](#usage)
+    - [Reference](#reference)
+    - [Development](#development)
+
+<!-- markdown-toc end -->
+
+## Module Description ##
 
 This module installs and configures logstash instances.
 
-## Setup
+## Setup ##
 
-### What logstash affects
+### What logstash affects ###
 
 * Services logstash-${instance}
 * Files under /etc/logstash/${instance}.conf.d/
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements ###
 
 This module does not provide a repository for logstash,
 
