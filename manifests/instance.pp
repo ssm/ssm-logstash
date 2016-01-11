@@ -1,15 +1,15 @@
 # Logstash instance
 #
-# A logstash instance defines a logstash service instance, and a
-# configuration file as a "concat" resource. To include your own
-# configuration, add concat::fragment resources.
+# A logstash instance defines a logstash service instance, and an
+# empty configuration file. To include your own configuration, add
+# logstash::config resources.
 #
 # Example
 #
 #   logstash::instance { 'test':
 #   }
 #
-#   concat::fragment { 'logstash input':
+#   logstash::config { 'test input one':
 #     content => template('...')
 #     target  => 'logstash::instance::test'
 #   }
