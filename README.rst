@@ -30,28 +30,41 @@ What logstash affects
 Setup Requirements
 ------------------
 
-This module does not provide a repository for logstash,
+* You need to provide a repository (yumrepo, apt::repository) for
+  Logstash, and ensure it is enforced before this class.
 
-You need to provide a repository (yumrepo, apt::repository) for
-Logstash in a separate module, and ensure it is used before this
-module.
+* You need to ensure "java" is installed on the server, and ensure it
+  is enforced before this class.
 
 
 Beginning with logstash
 -----------------------
 
-Configure a repository in your profile, and include the logstash class.
+Configure a logstash profile.
+
+Add a package repository, install java, and then install and configure
+logstash.
 
 .. code-block:: puppet
 
     class profile::logstash {
-        include ::logstash
 
+        # Repo
         yumrepo { 'logstash':
-            # [...]
+            descr    => 'logstash repo for centos',
+            baseurl  => 'https://packages.elastic.co/logstash/2.1/centos',
+            gpgcheck => '1',
+            enabled  => '1',
+            gpgkey   => 'https://packages.elastic.co/GPG-KEY-elasticsearch',
         }
-
         Yumrepo['logstash'] -> Class['logstash']
+
+        # Dependencies
+        class { '::java': distribution => 'jre' }
+        Package['java'] -> Class['logstash']
+
+        # Install and configure Logstash
+        class { '::logstash': }
 
         logstash::instance { 'shipper': }
 
@@ -59,13 +72,13 @@ Configure a repository in your profile, and include the logstash class.
             instance => 'shipper',
         }
         logstash::config { 'input':
-            source   => 'puppet:///profile/logstash/input.conf'
+            content   => 'input { syslog { port => 10514 } }'
         }
         logstash::config { 'filters':
             source   => 'puppet:///profile/logstash/filters.conf'
         }
         logstash::config { 'output':
-            source   => 'puppet:///profile/logstash/output.conf'
+            source   => 'output { elasticsearch { } }'
         }
     }
 
