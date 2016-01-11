@@ -23,6 +23,9 @@ define logstash::instance (
   validate_re($title, '^[[:alnum:]]+$')
   validate_re($ensure, '^(present|absent)$')
 
+  $concat_path="/etc/logstash/${title}.conf"
+  validate_absolute_path($concat_path)
+
   case $ensure {
     'present': {
       $concat_ensure  = 'present'
@@ -50,7 +53,7 @@ define logstash::instance (
 
   concat { "logstash::instance::${title}":
     ensure => $concat_ensure,
-    path   => "/etc/logstash/${title}.conf",
+    path   => $concat_path,
   }
 
   file { "/etc/systemd/system/logstash@${title}.service":
