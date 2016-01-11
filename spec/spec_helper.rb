@@ -1,6 +1,11 @@
 require 'puppetlabs_spec_helper/module_spec_helper'
 require 'rspec-puppet-facts'
 
+RSpec.configure do |c|
+  c.fail_fast     = true
+  c.default_facts = { concat_basedir: '/nonexistant' }
+end
+
 include RspecPuppetFacts
 
 require 'simplecov'

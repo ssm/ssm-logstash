@@ -12,13 +12,10 @@
 #
 class logstash (
   $package_name = $::logstash::params::package_name,
-  $service_name = $::logstash::params::service_name,
 ) inherits ::logstash::params {
 
   # validate parameters here
 
   class { '::logstash::install': } ->
-  class { '::logstash::config': } ~>
-  class { '::logstash::service': } ->
   Class['::logstash']
 }

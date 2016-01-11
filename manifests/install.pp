@@ -7,4 +7,7 @@ class logstash::install {
   package { $::logstash::package_name:
     ensure => present,
   }
+
+  file { '/etc/systemd/system/logstash@.service':
+  }
 }

@@ -11,12 +11,11 @@ describe 'logstash' do
         context "logstash class without any parameters" do
           it { is_expected.to compile.with_all_deps }
 
+          it { is_expected.to contain_class('logstash') }
           it { is_expected.to contain_class('logstash::params') }
-          it { is_expected.to contain_class('logstash::install').that_comes_before('logstash::config') }
-          it { is_expected.to contain_class('logstash::config') }
-          it { is_expected.to contain_class('logstash::service').that_subscribes_to('logstash::config') }
+          it { is_expected.to contain_class('logstash::install') }
 
-          it { is_expected.to contain_service('logstash') }
+          it { is_expected.to contain_file('/etc/systemd/system/logstash@.service') }
           it { is_expected.to contain_package('logstash').with_ensure('present') }
         end
       end
