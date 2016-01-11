@@ -22,6 +22,10 @@ describe 'logstash::config' do
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_logstash__config(config_name).with_instance(instance_name) }
           it { is_expected.to contain_concat__fragment('logstash::config::%s::%s' % [instance_name, config_name]) }
+
+          it { is_expected.to contain_service("logstash@#{instance_name}").with_ensure('running') }
+          it { is_expected.to contain_concat("logstash::instance::#{instance_name}") }
+          it { is_expected.to contain_file("/etc/systemd/system/logstash@#{instance_name}.service") }
         end
 
         context "ensure => absent" do

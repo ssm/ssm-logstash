@@ -1,0 +1,19 @@
+<%
+def logstash_command_line
+  command_line = [@command, "agent"]
+  command_line += ["--config", @config_file ]
+  if @workers
+    command_line += [ "--filterworkers", @workers ]
+  end
+  command_line.join(' ')
+end
+%>
+
+[Unit]
+Description=Logstash instance %I
+PartOf=logstash.target
+
+[Service]
+ExecStart=<%= logstash_command_line %>
+User=<%= @user %>
+Group=<%= @group %>

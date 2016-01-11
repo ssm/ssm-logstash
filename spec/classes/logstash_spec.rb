@@ -15,8 +15,11 @@ describe 'logstash' do
           it { is_expected.to contain_class('logstash::params') }
           it { is_expected.to contain_class('logstash::install') }
 
-          it { is_expected.to contain_file('/etc/systemd/system/logstash@.service') }
           it { is_expected.to contain_package('logstash').with_ensure('present') }
+          it { is_expected.to contain_file('/etc/default/logstash').with_ensure('absent') }
+          it { is_expected.to contain_file('/etc/init.d/logstash').with_ensure('absent') }
+          it { is_expected.to contain_service('logstash').with_ensure('stopped') }
+          it { is_expected.to contain_file('/etc/systemd/system/logstash.target') }
         end
       end
     end
