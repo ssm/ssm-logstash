@@ -23,7 +23,7 @@ Setup
 What logstash affects
 ---------------------
 
-* Services logstash-${instance}
+* systemd instances logstash@${instance}
 * Files under /etc/logstash/${instance}.conf.d/
 
 
@@ -52,19 +52,50 @@ Configure a repository in your profile, and include the logstash class.
         }
 
         Yumrepo['logstash'] -> Class['logstash']
+
+        logstash::instance { 'shipper': }
+
+        Logstash::Config {
+            instance => 'shipper',
+        }
+        logstash::config { 'input':
+            source   => 'puppet:///profile/logstash/input.conf'
+        }
+        logstash::config { 'filters':
+            source   => 'puppet:///profile/logstash/filters.conf'
+        }
+        logstash::config { 'output':
+            source   => 'puppet:///profile/logstash/output.conf'
+        }
     }
 
 
 Usage
 =====
 
-Put the classes, types, and resources for customizing, configuring,
-and doing the fancy stuff with your module here.
+class logstash
+--------------
 
-* class logstash
+Base class, installs logstash.  One parameter:
 
-* define logstash::instance
+* package_name: The package name to install. Default: "logstash"
 
+defined type logstash::instance
+-------------------------------
+
+Defines a logstash instance. Parameters:
+
+* ensure: "present" or "absent". Default: "present"
+
+defined type logstash::config
+------------------------------
+
+Defines a fragment of configuration for a logstash instance. Parameters:
+
+* instance: Refers to a defined logstash instance. Required, no
+  default.
+
+* ensure: "present" or "absent". Default: "present"
 
 Reference
 =========
