@@ -5,28 +5,51 @@ describe 'logstash class' do
     # Using puppet_apply as a helper
     it 'should work idempotently with no errors' do
       pp = <<-EOS
-      yumrepo { 'logstash':
-        descr    => 'logstash repo for centos',
-        baseurl  => 'https://packages.elastic.co/logstash/2.1/centos',
-        gpgcheck => '1',
-        enabled  => '1',
-        gpgkey   => 'https://packages.elastic.co/GPG-KEY-elasticsearch',
-      }
-      class { '::java': distribution => 'jre' }
-      class { '::logstash': }
-      logstash::instance { 'test01': }
+        class repo::yum {
+          yumrepo { 'logstash':
+            descr    => 'logstash repo for centos',
+            baseurl  => 'https://packages.elastic.co/logstash/2.1/centos',
+            gpgcheck => '1',
+            enabled  => '1',
+            gpgkey   => 'https://packages.elastic.co/GPG-KEY-elasticsearch',
+          }
+          Yumrepo['logstash'] -> Class['logstash']
+        }
 
-      Class['java'] -> Class['logstash']
-      Yumrepo['logstash'] -> Class['logstash']
+        class repo::apt {
+          include ::apt
+          apt::source { 'logstash':
+            location   => 'http://packages.elastic.co/logstash/2.1/debian',
+            release    => 'stable',
+            repos      => 'main',
+            key        => {
+              'id'     => '46095ACC8548582C1A2699A9D27D666CD88E42B4',
+              'server' => 'pool.sks-keyservers.net',
+            }
+          }
+          Class['apt::update'] -> Package <| |>
+        }
 
-      logstash::config { 'input':
-        instance => 'test01',
-        content  => 'input { syslog { port => 10514 } }'
-      }
-      logstash::config { 'output':
-        instance => 'test01',
-        content  => 'output { stdout { } }'
-      }
+        case $::osfamily {
+          'RedHat': { include ::repo::yum }
+          'Debian': { include ::repo::apt }
+          default: { fail('unsupported osfamily') }
+        }
+
+        class { '::java': distribution => 'jre' }
+        class { '::logstash': }
+        logstash::instance { 'test01': }
+
+        Class['java'] -> Class['logstash']
+
+        logstash::config { 'input':
+          instance => 'test01',
+          content  => 'input { syslog { port => 10514 } }'
+        }
+        logstash::config { 'output':
+          instance => 'test01',
+          content  => 'output { stdout { } }'
+        }
       EOS
 
       # Run it twice and test for idempotency
