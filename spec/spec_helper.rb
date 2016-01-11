@@ -3,6 +3,7 @@ require 'rspec-puppet-facts'
 
 RSpec.configure do |c|
   c.fail_fast     = true
+  c.formatter     = :documentation
   c.default_facts = { concat_basedir: '/nonexistant' }
 end
 
