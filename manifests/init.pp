@@ -12,10 +12,19 @@
 #
 class logstash (
   $package_name = $::logstash::params::package_name,
-) inherits ::logstash::params {
+)
+inherits ::logstash::params {
 
   # validate parameters here
 
-  class { '::logstash::install': } ->
-  Class['::logstash']
+  anchor { 'logstash::begin': }
+  ->
+  class { '::logstash::install': }
+  ->
+  anchor { 'logstash::end': }
+
+  Logstash::Instance <| |> {
+    require => Class['logstash::install'],
+    before  => Anchor['logstash::end'],
+  }
 }
