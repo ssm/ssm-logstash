@@ -73,7 +73,7 @@ define logstash::instance (
   concat { "logstash::instance::${title}":
     ensure       => $concat_ensure,
     path         => $config_file,
-    validate_cmd => "${command} agent --configtest --config ${config_file}",
+    validate_cmd => "${command} agent --configtest --config %",
     warn         => true,
   }
 
