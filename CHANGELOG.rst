@@ -1,11 +1,10 @@
-===========
- Changelog
-===========
+=================
+ Release history
+=================
 
 .. contents::
 
-YYYY-MM-DD Release 0.1.0
-========================
+0.1.0 (2-16-01-12)
+==================
 
-- something you did
-- something else you did
+- Initial release. What could possibly go wrong?
