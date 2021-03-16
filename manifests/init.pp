@@ -18,9 +18,9 @@ inherits ::logstash::params {
   # validate parameters here
 
   anchor { 'logstash::begin': }
-  
+
   -> class { '::logstash::install': }
-  
+
   -> anchor { 'logstash::end': }
 
   Logstash::Instance <| |> {
