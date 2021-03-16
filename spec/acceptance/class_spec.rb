@@ -67,8 +67,10 @@ describe 'logstash class' do
     end
 
     describe file('/etc/logstash/test01.conf') do
-      its(:content) { is_expected.to match(%r{input.*syslog.*10514}) }
-      its(:content) { is_expected.to match(%r{output.*stdout}) }
+      its(:content) do
+        is_expected.to match(%r{input.*syslog.*10514})
+        is_expected.to match(%r{output.*stdout})
+      end
     end
   end
 end
