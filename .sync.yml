@@ -1,8 +1,23 @@
-# This file can be used to customize the files managed by PDK.
-#
-# See https://github.com/puppetlabs/pdk-templates/blob/main/README.md
-# for more information.
-#
-# See https://github.com/puppetlabs/pdk-templates/blob/main/config_defaults.yml
-# for the default values.
---- {}
+---
+.travis.yml:
+  branches:
+    - main
+spec/spec_helper.rb:
+  mock_with: ':rspec'
+  strict_level: ':error'
+Rakefile:
+  extras:
+    - |
+      Blacksmith::RakeTask.new do |t|
+        t.commit_message_pattern = "Bump version to %s"
+        t.tag_message_pattern = "Release %s"
+        t.tag_pattern = "%s"
+        t.tag_sign = true
+      end
+Gemfile:
+  required:
+    ':system_tests':
+      - gem: ed25519
+        version: '~> 1.2'
+      - gem: bcrypt_pbkdf
+        version: '~> 1.0'
