@@ -8,7 +8,7 @@ describe 'logstash' do
           facts
         end
 
-        context "logstash class without any parameters" do
+        context 'logstash class without any parameters' do
           it { is_expected.to compile.with_all_deps }
 
           it { is_expected.to contain_class('logstash') }
@@ -29,12 +29,12 @@ describe 'logstash' do
     describe 'logstash class without any parameters on an unknown OS' do
       let(:facts) do
         {
-          :osfamily        => 'Unknown',
-          :operatingsystem => 'UnknownOS',
+          osfamily: 'Unknown',
+          operatingsystem: 'UnknownOS',
         }
       end
 
-      it { expect { is_expected.to contain_package('logstash') }.to raise_error(Puppet::Error, /UnknownOS not supported/) }
+      it { expect { is_expected.to contain_package('logstash') }.to raise_error(Puppet::Error, %r{UnknownOS not supported}) }
     end
   end
 end

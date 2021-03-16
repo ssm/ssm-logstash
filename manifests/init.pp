@@ -18,10 +18,10 @@ inherits ::logstash::params {
   # validate parameters here
 
   anchor { 'logstash::begin': }
-  ->
-  class { '::logstash::install': }
-  ->
-  anchor { 'logstash::end': }
+
+  -> class { '::logstash::install': }
+
+  -> anchor { 'logstash::end': }
 
   Logstash::Instance <| |> {
     require => Class['logstash::install'],
