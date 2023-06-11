@@ -4,7 +4,7 @@
 # It sets variables according to platform.
 #
 class logstash::params {
-  case $::osfamily {
+  case $facts['facts['os']['family']'] {
     'Debian': {
       $package_name = 'logstash'
     }
@@ -12,7 +12,7 @@ class logstash::params {
       $package_name = 'logstash'
     }
     default: {
-      fail("${::operatingsystem} not supported")
+      fail("${facts['facts['os']['name']']} not supported")
     }
   }
 }

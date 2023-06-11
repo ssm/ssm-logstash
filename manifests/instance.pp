@@ -34,9 +34,7 @@ define logstash::instance (
   $user        = 'logstash',
   $group       = 'logstash',
   $workers     = '',
-)
-{
-
+) {
   # Validate title and parameters
   validate_re($title, '^[[:alnum:]]+$')
   validate_re($ensure, '^(present|absent)$')

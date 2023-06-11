@@ -3,8 +3,7 @@
 # This class is called from logstash for install.
 #
 class logstash::install {
-
-  package { $::logstash::package_name:
+  package { $logstash::package_name:
     ensure => present,
   }
 
@@ -28,5 +27,4 @@ class logstash::install {
     ensure  => absent,
     require => Service['logstash'],
   }
-
 }

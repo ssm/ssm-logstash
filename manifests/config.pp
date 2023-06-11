@@ -24,9 +24,7 @@ define logstash::config (
   $order   = undef,
   $content = undef,
   $source  = undef,
-)
-{
-
+) {
   # Validate title and parameters
   validate_re($instance, '^[[:alnum:]]+$')
   validate_re($ensure, '^(present|absent)$')
@@ -38,5 +36,4 @@ define logstash::config (
     source  => $source,
     target  => "logstash::instance::${instance}",
   }
-
 }
