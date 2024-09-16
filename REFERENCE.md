@@ -7,13 +7,13 @@
 ### Classes
 
 * [`logstash`](#logstash): Class: logstash ===========================  Full description of class logstash here.  Parameters ----------  * `sample parameter`   Explanat
-* [`logstash::install`](#logstashinstall): == Class logstash::install  This class is called from logstash for install.
-* [`logstash::params`](#logstashparams): == Class logstash::params  This class is meant to be called from logstash. It sets variables according to platform.
+* [`logstash::install`](#logstash--install): == Class logstash::install  This class is called from logstash for install.
+* [`logstash::params`](#logstash--params): == Class logstash::params  This class is meant to be called from logstash. It sets variables according to platform.
 
 ### Defined types
 
-* [`logstash::config`](#logstashconfig)
-* [`logstash::instance`](#logstashinstance): Logstash instance  A logstash instance defines a logstash service instance, and an empty configuration file. To include your own configuratio
+* [`logstash::config`](#logstash--config)
+* [`logstash::instance`](#logstash--instance): Logstash instance  A logstash instance defines a logstash service instance, and an empty configuration file. To include your own configuratio
 
 ## Classes
 
@@ -35,23 +35,23 @@ Parameters
 
 The following parameters are available in the `logstash` class:
 
-* [`package_name`](#package_name)
+* [`package_name`](#-logstash--package_name)
 
-##### <a name="package_name"></a>`package_name`
+##### <a name="-logstash--package_name"></a>`package_name`
 
 Data type: `Any`
 
 
 
-Default value: `$::logstash::params::package_name`
+Default value: `$logstash::params::package_name`
 
-### <a name="logstashinstall"></a>`logstash::install`
+### <a name="logstash--install"></a>`logstash::install`
 
 == Class logstash::install
 
 This class is called from logstash for install.
 
-### <a name="logstashparams"></a>`logstash::params`
+### <a name="logstash--params"></a>`logstash::params`
 
 == Class logstash::params
 
@@ -60,7 +60,7 @@ It sets variables according to platform.
 
 ## Defined types
 
-### <a name="logstashconfig"></a>`logstash::config`
+### <a name="logstash--config"></a>`logstash::config`
 
 The logstash::config class.
 
@@ -68,19 +68,19 @@ The logstash::config class.
 
 The following parameters are available in the `logstash::config` defined type:
 
-* [`instance`](#instance)
-* [`ensure`](#ensure)
-* [`order`](#order)
-* [`content`](#content)
-* [`source`](#source)
+* [`instance`](#-logstash--config--instance)
+* [`ensure`](#-logstash--config--ensure)
+* [`order`](#-logstash--config--order)
+* [`content`](#-logstash--config--content)
+* [`source`](#-logstash--config--source)
 
-##### <a name="instance"></a>`instance`
+##### <a name="-logstash--config--instance"></a>`instance`
 
 Data type: `Any`
 
 
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-logstash--config--ensure"></a>`ensure`
 
 Data type: `Any`
 
@@ -88,31 +88,31 @@ Data type: `Any`
 
 Default value: `'present'`
 
-##### <a name="order"></a>`order`
+##### <a name="-logstash--config--order"></a>`order`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="content"></a>`content`
-
-Data type: `Any`
-
-
-
-Default value: ``undef``
-
-##### <a name="source"></a>`source`
+##### <a name="-logstash--config--content"></a>`content`
 
 Data type: `Any`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="logstashinstance"></a>`logstash::instance`
+##### <a name="-logstash--config--source"></a>`source`
+
+Data type: `Any`
+
+
+
+Default value: `undef`
+
+### <a name="logstash--instance"></a>`logstash::instance`
 
 Logstash instance
 
@@ -147,14 +147,14 @@ workers: number of filter workers (default: '')
 
 The following parameters are available in the `logstash::instance` defined type:
 
-* [`ensure`](#ensure)
-* [`command`](#command)
-* [`config_file`](#config_file)
-* [`user`](#user)
-* [`group`](#group)
-* [`workers`](#workers)
+* [`ensure`](#-logstash--instance--ensure)
+* [`command`](#-logstash--instance--command)
+* [`config_file`](#-logstash--instance--config_file)
+* [`user`](#-logstash--instance--user)
+* [`group`](#-logstash--instance--group)
+* [`workers`](#-logstash--instance--workers)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-logstash--instance--ensure"></a>`ensure`
 
 Data type: `Any`
 
@@ -162,7 +162,7 @@ Data type: `Any`
 
 Default value: `'present'`
 
-##### <a name="command"></a>`command`
+##### <a name="-logstash--instance--command"></a>`command`
 
 Data type: `Any`
 
@@ -170,7 +170,7 @@ Data type: `Any`
 
 Default value: `'/opt/logstash/bin/logstash'`
 
-##### <a name="config_file"></a>`config_file`
+##### <a name="-logstash--instance--config_file"></a>`config_file`
 
 Data type: `Any`
 
@@ -178,7 +178,7 @@ Data type: `Any`
 
 Default value: `"/etc/logstash/${title}.conf"`
 
-##### <a name="user"></a>`user`
+##### <a name="-logstash--instance--user"></a>`user`
 
 Data type: `Any`
 
@@ -186,7 +186,7 @@ Data type: `Any`
 
 Default value: `'logstash'`
 
-##### <a name="group"></a>`group`
+##### <a name="-logstash--instance--group"></a>`group`
 
 Data type: `Any`
 
@@ -194,7 +194,7 @@ Data type: `Any`
 
 Default value: `'logstash'`
 
-##### <a name="workers"></a>`workers`
+##### <a name="-logstash--instance--workers"></a>`workers`
 
 Data type: `Any`
 
